@@ -1,77 +1,55 @@
-# Windows Fix Scripts
+# Windows Fix Scripts (Python)
 
-Simple **Batch** utilities to quickly resolve common Windows hiccups — without a full reboot.  
-Includes fixes for **Quick Settings / Explorer**, **Windows Audio**, and **Bluetooth**.
+This repository contains **Python utility scripts** to quickly fix common Windows issues related to audio, Bluetooth, and Quick Settings.
 
-> ⚠️ **Safety & Admin**
-> - Read the code before running. Use at your own risk.
-> - Some scripts require **Administrator** privileges (they will ask for elevation).
+## Included Scripts
 
----
+- **`fix_quick_settings.py`**  
+  Restarts `explorer.exe` to resolve occasional glitches with Windows Quick Settings.
 
-## ✨ Scripts
+- **`restart_audio_services.py`**  
+  Restarts the audio services (`AudioEndpointBuilder` and `Audiosrv`) when sound stops working.
 
-| Script | Fixes | Requires Admin | How to run |
-| --- | --- | --- | --- |
-| `Fix-Quick-Settings.bat` | Restarts `explorer.exe` to solve Quick Settings/Taskbar/Start glitches. | No | Double-click or run in a normal terminal. |
-| `Restart-Audio.bat` | Restarts **Windows Audio** services to fix sound issues (muted/no device). | Yes | Run from an **elevated** terminal or right-click → “Run as administrator”. |
-| `Reset-Bluetooth.bat` | Disables/enables Bluetooth adapter to recover from pairing/driver problems. | Yes | Run from an **elevated** terminal or right-click → “Run as administrator”. |
+- **`reset_bluetooth_devices.py`**  
+  Disables and removes Bluetooth devices via PowerShell and triggers a new device scan with `pnputil`.
 
 ---
 
-## 📦 Download
+## Requirements
 
-- **Source code**: clone this repo.  
-- **Ready-to-run ZIP**: see Releases (contains only the `/scripts` folder).
-
----
-
-## 🚀 Usage
-
-### 1) Fix Quick Settings / Explorer
-```bat
-:: Double-click or:
-scripts\Fix-Quick-Settings.bat
-```
-What it does:
-- Kills `explorer.exe`
-- Relaunches the shell
-- **Note:** File Explorer windows will restart fresh.
-
-### 2) Restart Windows Audio
-```bat
-:: Requires elevated terminal (Run as administrator)
-scripts\Restart-Audio.bat
-```
-What it does:
-- Stops & starts `Windows Audio` (and related) services
-- Restores audio without reboot when devices vanish or hang
-
-### 3) Reset Bluetooth Adapter
-```bat
-:: Requires elevated terminal (Run as administrator)
-scripts\Reset-Bluetooth.bat
-```
-What it does:
-- Disables/enables the Bluetooth adapter via system tools
-- **Note:** You may need to re-pair devices in edge cases.
+- **Python 3.7+** installed on Windows  
+- **Administrator privileges** (scripts will auto-elevate if needed)  
+- **PowerShell** (pre-installed on Windows 10/11)  
+- For the Bluetooth script: support for `Get-PnpDevice`, `Disable-PnpDevice`, `Remove-PnpDevice` cmdlets
 
 ---
 
-## 🛠 Tech
+## Usage
 
-- Windows **Batch (.bat)**
-- Tested on Windows 10/11
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/tiagoroque3/Windows-Fix-Scripts-Python.git
+   cd Windows-Fix-Scripts-Python
+   ```
 
-## 🔒 Permissions
+2. Run the desired script:
+   ```bash
+   python fix_quick_settings.py
+   python restart_audio_services.py
+   python reset_bluetooth_devices.py
+   ```
 
-- Only `Restart-Audio` and `Reset-Bluetooth` need admin rights.
-- Scripts do **not** change system policies or registry (beyond service/device restart).
+⚠️ **Note:** All scripts require administrator privileges. If run without, they will request elevation automatically.
 
-## 🧾 License
+---
 
-MIT — see `LICENSE`.
+## Motivation
 
-## 🙌 Author
+These scripts were created to quickly solve common Windows problems without rebooting the system. Originally written in **Batch (.bat)**, they were rewritten in **Python** for better flexibility and readability.
 
-- Tiago Roque — [LinkedIn](linkedin.com/in/tiagodcroque) • [GitHub](https://github.com/tiagoroque3)
+---
+
+## License
+
+This project is distributed under the MIT License.  
+Feel free to use, modify, and share.
